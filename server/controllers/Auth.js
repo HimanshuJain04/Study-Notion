@@ -85,7 +85,11 @@ exports.signup = async (req, res) => {
       dateOfBirth: null,
       about: null,
       contactNumber: null,
-    })
+    });
+
+
+    const image = `https://api.dicebear.com/6.x/initials/svg?seed=${firstName} ${lastName}&backgroundColor=00897b,00acc1,039be5,1e88e5,3949ab,43a047,5e35b1,7cb342,8e24aa,c0ca33,d81b60,e53935,f4511e,fb8c00,fdd835,ffb300,ffd5dc,ffdfbf,c0aede,d1d4f9,b6e3f4&backgroundType=solid,gradientLinear&backgroundRotation=0,360,-350,-340,-330,-320&fontFamily=Arial&fontWeight=600`;
+
 
     const user = await User.create({
       firstName,
@@ -96,14 +100,15 @@ exports.signup = async (req, res) => {
       accountType: accountType,
       approved: approved,
       additionalDetails: profileDetails._id,
-      image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fphotos%2Ftree-sunset-clouds-sky-silhouette-736885%2F&psig=AOvVaw2WqaE79qnfbHK2jWy7Eh6C&ust=1712762255177000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCJD6vOG2tYUDFQAAAAAdAAAAABAE",
+      image
     });
 
     return res.status(200).json({
       success: true,
       user,
       message: "User registered successfully",
-    })
+    });
+
   } catch (error) {
     console.error(error)
     return res.status(500).json({
